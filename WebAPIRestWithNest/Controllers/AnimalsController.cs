@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using BusinessLayer.DomainModel;
+using Damienbod.BusinessLayer.DomainModel;
 
 namespace WebAPIRestWithNest.Controllers
 {

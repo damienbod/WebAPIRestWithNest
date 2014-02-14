@@ -200,9 +200,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+    <ProjectReference Include="..\BusinessLayer\Damienbod.BusinessLayer.csproj">
       <Project>{54EB8E81-0898-4A74-BBED-9779D87C01AD}</Project>
-      <Name>BusinessLayer</Name>
+      <Name>Damienbod.BusinessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
