@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Slab.Elasticsearch</id>
+    <version>1.0.2</version>
+    <title>Semantic Logging Sink for Elasticsearch</title>
+    <authors>damienbod</authors>
+    <owners>damienbod</owners>
+    <projectUrl>http://wp.me/p38qmU-Al</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/61d005637f57b5c3da8ba662cf04a9d6.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Slab or Semantic Logging for Elasticsearch sink</description>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>.NET Slab Semantic Logging Elasticsearch</tags>
+    <dependencies>
+      <dependency id="EnterpriseLibrary.SemanticLogging" version="1.0.1304.0" />
+      <dependency id="NEST.Signed" version="0.12.0.0" />
+      <dependency id="Newtonsoft.Json" version="4.5.11" />
+    </dependencies>
+  </metadata>
+</package>
