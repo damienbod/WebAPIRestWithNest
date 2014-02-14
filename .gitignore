@@ -1,2 +1,11 @@
 BusinessLayer/obj
 BusinessLayer/bin
+Damienbod.BusinessLayer/bin
+Damienbod.BusinessLayer/obj
+Damienbod.ElasticSearchProvider/obj
+Damienbod.LogProvider/bin
+Damienbod.LogProvider/obj
+Damienbod.ElasticSearchProvider/bin
+WebAPIRestWithNest/bin
+WebAPIRestWithNest/obj
+WebAPIRestWithNest.v11.suo

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Damienbod.BusinessLayer.Attributes.MVC5UnitySlab.Business.Attributes;
+using Damienbod.BusinessLayer.Providers;
 using Microsoft.Practices.Unity;
 
 namespace WebAPIRestWithNest.App_Start

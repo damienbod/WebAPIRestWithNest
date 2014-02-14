@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Damienbod.BusinessLayer.Attributes.MVC5UnitySlab.Business.Attributes;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
 using Damienbod.BusinessLayer.DomainModel;
 
 namespace BusinessLayer.Managers
 {
+    [TransientLifetime]
     public class AnimalManager : IAnimalManager
     {
         private readonly ILogProvider _logProvider;
@@ -21,7 +23,7 @@ namespace BusinessLayer.Managers
             throw new System.NotImplementedException();
         }
 
-        public Task Delete(int id)
+        public void Delete(int id)
         {
             throw new System.NotImplementedException();
         }
@@ -41,12 +43,7 @@ namespace BusinessLayer.Managers
             throw new System.NotImplementedException();
         }
 
-        public Task Update(Animal animal)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Task IAnimalManager.Create(Animal animal)
+        public void Update(Animal animal)
         {
             throw new System.NotImplementedException();
         }

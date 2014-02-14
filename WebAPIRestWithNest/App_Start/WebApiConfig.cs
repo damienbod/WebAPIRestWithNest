@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Filters;
+using Damienbod.BusinessLayer.Providers;
+using Damienbod.LogProvider;
+using Microsoft.Practices.Unity;
+using WebAPIRestWithNest.App_Start;
 
 namespace WebAPIRestWithNest
 {
@@ -9,16 +15,19 @@ namespace WebAPIRestWithNest
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
-            // Web API routes
             config.MapHttpAttributeRoutes();
+            config.Services.Add(typeof(IExceptionLogger), new SlabLogExceptionLogger(UnityConfig.GetConfiguredContainer().Resolve<ILogProvider>()));
+           
+            RegisterFilterProviders(config);
+        }
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+        public static void RegisterFilterProviders(HttpConfiguration config)
+        {
+            // Add Unity filters provider
+            var providers = config.Services.GetFilterProviders().ToList();
+            config.Services.Add(typeof(System.Web.Http.Filters.IFilterProvider), new WebApiUnityActionFilterProvider(UnityConfig.GetConfiguredContainer()));
+            var defaultprovider = providers.First(p => p is ActionDescriptorFilterProvider);
+            config.Services.Remove(typeof(System.Web.Http.Filters.IFilterProvider), defaultprovider);
         }
     }
 }
