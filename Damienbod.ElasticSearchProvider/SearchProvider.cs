@@ -41,6 +41,7 @@ namespace Damienbod.ElasticSearchProvider
         {
             var result = _elasticsearchClient.Search<Animal>(s => s
                     .Index("animals")
+                    .AllTypes()
                     .MatchAll()
                 );
             return result.Documents.ToList();
