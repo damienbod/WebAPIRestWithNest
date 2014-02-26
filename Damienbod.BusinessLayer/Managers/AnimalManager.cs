@@ -31,7 +31,7 @@ namespace BusinessLayer.Managers
 
         public void UpdateAnimal(Animal value)
         {
-            _searchProvider.UpdateCreateAnimal(value);
+            _searchProvider.UpdateAnimal(value);
         }
 
         public void DeleteAnimal(int id)
@@ -41,7 +41,7 @@ namespace BusinessLayer.Managers
 
         public void CreateAnimal(Animal value)
         {
-            _searchProvider.UpdateCreateAnimal(value);
+            _searchProvider.CreateAnimal(value);
         }
     }
 }

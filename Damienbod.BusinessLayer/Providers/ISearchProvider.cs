@@ -5,7 +5,9 @@ namespace Damienbod.BusinessLayer.Providers
 {
     public interface ISearchProvider
     {
-        void UpdateCreateAnimal(Animal animal);
+        void CreateAnimal(Animal animal);
+
+        void UpdateAnimal(Animal animal);
 
         IEnumerable<Animal> GetAnimals();
     }

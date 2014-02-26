@@ -22,7 +22,6 @@ namespace WebAPIRestWithNest.Controllers
 
         // GET api/animals
         [HttpGet]
-        [HttpPost]
         [Route("")]
         public IEnumerable<Animal> Get()
         {

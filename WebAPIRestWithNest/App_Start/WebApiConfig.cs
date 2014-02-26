@@ -11,6 +11,7 @@ namespace WebAPIRestWithNest
         public static void Register(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
+           // config.DependencyResolver = new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
             config.Services.Add(typeof(IExceptionLogger), new SlabLogExceptionLogger(UnityConfig.GetConfiguredContainer().Resolve<ILogProvider>()));
 
             WebApiUnityActionFilterProvider.RegisterFilterProviders(config);
