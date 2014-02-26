@@ -29,7 +29,7 @@ namespace WebAPIRestWithNest.App_Start
             return filters;
         }
  
-        public  static void RegisterFilterProviders(HttpConfiguration config)
+        public static void RegisterFilterProviders(HttpConfiguration config)
         {
             // Add Unity filters provider
             var providers = config.Services.GetFilterProviders().ToList();

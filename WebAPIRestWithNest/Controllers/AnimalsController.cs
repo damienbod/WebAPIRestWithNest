@@ -19,20 +19,22 @@ namespace WebAPIRestWithNest.Controllers
             _animalManager = animalManager;
             _logProvider = logProvider;
         }
+
         // GET api/animals
         [HttpGet]
         [HttpPost]
         [Route("")]
         public IEnumerable<Animal> Get()
         {
-            return new List<Animal>{ new Animal { AnimalType = "Dog", Id = 1 }, new Animal { AnimalType = "Cat", Id = 2 } };
+            return _animalManager.GetAnimals();
         }
 
         [HttpGet]
         [Route("{id}")]
         public Animal Get(int id)
         {
-            return new Animal{ AnimalType = "Dog", Id = 1 };
+            return _animalManager.GetAnimal(id);
+           
         }
 
         // POST api/animals
@@ -40,6 +42,7 @@ namespace WebAPIRestWithNest.Controllers
         [Route("")]
         public void Post([FromBody]Animal value)
         {
+            _animalManager.CreateAnimal(value);
         }
 
         // PUT api/animals/5
@@ -47,6 +50,7 @@ namespace WebAPIRestWithNest.Controllers
         [Route("{id}")]
         public void Put(int id, [FromBody]Animal value)
         {
+            _animalManager.UpdateAnimal(value);
         }
 
         // DELETE api/animals/5
@@ -54,6 +58,7 @@ namespace WebAPIRestWithNest.Controllers
         [Route("{id}")]
         public void Delete(int id)
         {
+            _animalManager.DeleteAnimal(id);
         }
     }
 }

@@ -40,6 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Damienbod.BusinessLayer\Damienbod.BusinessLayer.csproj">
+      <Project>{54eb8e81-0898-4a74-bbed-9779d87c01ad}</Project>
+      <Name>Damienbod.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Damienbod.LogProvider\Damienbod.LogProvider.csproj">
+      <Project>{4afa926b-b633-4812-9366-44856d155615}</Project>
+      <Name>Damienbod.LogProvider</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

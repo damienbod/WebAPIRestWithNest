@@ -6,14 +6,10 @@ namespace Damienbod.BusinessLayer.Managers
 {
     public interface IAnimalManager
     {
-        void Create(Animal animal);
-
-        void Delete(int id);
-
-        Task<IEnumerable<Animal>> Get();
-
-        Task<Animal> Get(int id);
-
-        void Update(Animal animal);
+        IEnumerable<Animal> GetAnimals();
+        Animal GetAnimal(int id);
+        void UpdateAnimal(Animal value);
+        void DeleteAnimal(int id);
+        void CreateAnimal(Animal value);
     }
 }

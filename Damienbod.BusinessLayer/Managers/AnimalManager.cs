@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Damienbod.BusinessLayer.Attributes.MVC5UnitySlab.Business.Attributes;
+using Damienbod.BusinessLayer.Attributes;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
 using Damienbod.BusinessLayer.DomainModel;
@@ -11,41 +10,38 @@ namespace BusinessLayer.Managers
     public class AnimalManager : IAnimalManager
     {
         private readonly ILogProvider _logProvider;
+        private ISearchProvider _searchProvider;
 
-        public AnimalManager(ILogProvider logProvider)
+        public AnimalManager(ILogProvider logProvider, ISearchProvider searchProvider)
         {
             _logProvider = logProvider;
+            _searchProvider = searchProvider;
             _logProvider.BusinessLayerVerbose("created animal manager instance");
         }
 
-        public void Create(Animal animal)
+        public IEnumerable<Animal> GetAnimals()
+        {
+            return _searchProvider.GetAnimals();
+        }
+
+        public Animal GetAnimal(int id)
+        {
+            return new Animal { AnimalType = "Dog", Id = 1 };
+        }
+
+        public void UpdateAnimal(Animal value)
+        {
+            _searchProvider.UpdateCreateAnimal(value);
+        }
+
+        public void DeleteAnimal(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void CreateAnimal(Animal value)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Animal>> Get()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Animal> Get(string type, int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Animal> Get(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update(Animal animal)
-        {
-            throw new System.NotImplementedException();
+            _searchProvider.UpdateCreateAnimal(value);
         }
     }
 }

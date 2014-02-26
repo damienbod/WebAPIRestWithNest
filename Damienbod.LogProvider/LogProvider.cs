@@ -1,4 +1,4 @@
-﻿using Damienbod.BusinessLayer.Attributes.MVC5UnitySlab.Business.Attributes;
+﻿using Damienbod.BusinessLayer.Attributes;
 using Damienbod.BusinessLayer.Providers;
 using Damienbod.LogProvider.Loggers;
 

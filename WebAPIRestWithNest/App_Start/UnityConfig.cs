@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Damienbod.BusinessLayer.Attributes.MVC5UnitySlab.Business.Attributes;
-using Damienbod.BusinessLayer.Providers;
+using Damienbod.BusinessLayer.Attributes;
 using Microsoft.Practices.Unity;
 
 namespace WebAPIRestWithNest.App_Start
