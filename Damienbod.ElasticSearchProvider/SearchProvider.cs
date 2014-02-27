@@ -24,7 +24,8 @@ namespace Damienbod.ElasticSearchProvider
 
         public void CreateAnimal(Animal animal)
         {
-            _elasticsearchClient.Index(animal, Animal.SearchIndex, animal.AnimalType);
+            
+            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
         }
 
         public void UpdateAnimal(Animal animal)
@@ -45,6 +46,16 @@ namespace Damienbod.ElasticSearchProvider
                     .MatchAll()
                 );
             return result.Documents.ToList();
+        }
+
+        public void DeleteById(int id)
+        {
+            _elasticsearchClient.DeleteById("animals", "animal", id);
+        }
+
+        public void DeleteIndex(string index)
+        {
+            _elasticsearchClient.DeleteIndex(index);
         }
     }
 }

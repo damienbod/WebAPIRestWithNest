@@ -36,7 +36,7 @@ namespace BusinessLayer.Managers
 
         public void DeleteAnimal(int id)
         {
-            throw new System.NotImplementedException();
+            _searchProvider.DeleteById(id);
         }
 
         public void CreateAnimal(Animal value)
