@@ -46,6 +46,7 @@ namespace WebAPIRestWithNest.Controllers
 
         // PUT api/animals/5
         [HttpPut]
+        [HttpPatch]
         [Route("{id}")]
         public void Put(int id, [FromBody]Animal value)
         {

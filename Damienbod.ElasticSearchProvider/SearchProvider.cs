@@ -20,12 +20,14 @@ namespace Damienbod.ElasticSearchProvider
             var uri = new Uri("http://localhost:9200");
             var settings = new ConnectionSettings(uri).SetDefaultIndex("animals");
             _elasticsearchClient = new ElasticClient(settings);
+            _logProvider.ElasticSearchProviderVerbose("SearchProvider construction");
         }
 
         public void CreateAnimal(Animal animal)
         {
             
             _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
+            _logProvider.ElasticSearchProviderVerbose(string.Format("Created animal: {0}, {1}", animal.Id, animal.AnimalType));
         }
 
         public void UpdateAnimal(Animal animal)
@@ -36,6 +38,7 @@ namespace Damienbod.ElasticSearchProvider
                     .RetriesOnConflict(5)
                     .Refresh()
              );
+            _logProvider.ElasticSearchProviderVerbose(string.Format("Updated animal: {0}, {1}", animal.Id, animal.AnimalType));
         }
 
         public IEnumerable<Animal> GetAnimals()
@@ -50,11 +53,13 @@ namespace Damienbod.ElasticSearchProvider
 
         public void DeleteById(int id)
         {
+            _logProvider.ElasticSearchProviderVerbose(string.Format("Sending DELETE animal type from animals index with id: {0}", id));
             _elasticsearchClient.DeleteById("animals", "animal", id);
         }
 
         public void DeleteIndex(string index)
         {
+            _logProvider.ElasticSearchProviderWarning(string.Format("Sending DELETE index: {0}", index));
             _elasticsearchClient.DeleteIndex(index);
         }
     }
