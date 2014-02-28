@@ -25,19 +25,20 @@ namespace Damienbod.ElasticSearchProvider
 
         public void CreateAnimal(Animal animal)
         {
-            
+            var idsList = new List<string> {animal.Id.ToString()};
+            var result = _elasticsearchClient.Search<Animal>(s => s
+                .Index("animals")
+                .AllTypes()
+                .Query(p => p.Ids(idsList)));
+                
             _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
+            if(result.Documents.Any()) throw new ArgumentException("Id already exists in store");
             _logProvider.ElasticSearchProviderVerbose(string.Format("Created animal: {0}, {1}", animal.Id, animal.AnimalType));
         }
 
         public void UpdateAnimal(Animal animal)
         {
-            _elasticsearchClient.Update<Animal>(u => u
-                    .Object(animal)
-                    .Script("ctx._source.loc += 10")
-                    .RetriesOnConflict(5)
-                    .Refresh()
-             );
+            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
             _logProvider.ElasticSearchProviderVerbose(string.Format("Updated animal: {0}, {1}", animal.Id, animal.AnimalType));
         }
 

@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using Damienbod.BusinessLayer.Attributes;
-using Damienbod.BusinessLayer.Managers;
-using Damienbod.BusinessLayer.Providers;
 using Damienbod.BusinessLayer.DomainModel;
+using Damienbod.BusinessLayer.Providers;
 
-namespace BusinessLayer.Managers
+namespace Damienbod.BusinessLayer.Managers
 {
     [TransientLifetime]
     public class AnimalManager : IAnimalManager
     {
         private readonly ILogProvider _logProvider;
-        private ISearchProvider _searchProvider;
+        private readonly ISearchProvider _searchProvider;
 
         public AnimalManager(ILogProvider logProvider, ISearchProvider searchProvider)
         {
@@ -42,6 +41,11 @@ namespace BusinessLayer.Managers
         public void CreateAnimal(Animal value)
         {
             _searchProvider.CreateAnimal(value);
+        }
+
+        public void DeleteIndex(string index)
+        {
+            _searchProvider.DeleteIndex(index);
         }
     }
 }

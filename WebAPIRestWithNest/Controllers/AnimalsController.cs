@@ -60,5 +60,13 @@ namespace WebAPIRestWithNest.Controllers
         {
             _animalManager.DeleteAnimal(id);
         }
+
+        // DELETE api/animals/5
+        [HttpDelete]
+        [Route("deleteIndex/{index}")]
+        public void DeleteIndex(string index)
+        {
+            _animalManager.DeleteIndex(index);
+        }
     }
 }

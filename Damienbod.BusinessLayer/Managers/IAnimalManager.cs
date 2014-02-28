@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Damienbod.BusinessLayer.DomainModel;
 
 namespace Damienbod.BusinessLayer.Managers
@@ -11,5 +10,6 @@ namespace Damienbod.BusinessLayer.Managers
         void UpdateAnimal(Animal value);
         void DeleteAnimal(int id);
         void CreateAnimal(Animal value);
+        void DeleteIndex(string index);
     }
 }

@@ -11,5 +11,6 @@ namespace Damienbod.BusinessLayer.Providers
 
         IEnumerable<Animal> GetAnimals();
         void DeleteById(int id);
+        void DeleteIndex(string index);
     }
 }
