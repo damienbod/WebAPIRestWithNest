@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Damienbod.BusinessLayer.Attributes;
 using Damienbod.BusinessLayer.DomainModel;
@@ -25,15 +26,19 @@ namespace Damienbod.ElasticSearchProvider
 
         public void CreateAnimal(Animal animal)
         {
-            var idsList = new List<string> {animal.Id.ToString()};
+            ValidateIfIdIsAlreadyUsedForIndex(animal.Id.ToString(CultureInfo.InvariantCulture));               
+            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");          
+            _logProvider.ElasticSearchProviderVerbose(string.Format("Created animal: {0}, {1}", animal.Id, animal.AnimalType));
+        }
+
+        private void ValidateIfIdIsAlreadyUsedForIndex(string id)
+        {
+            var idsList = new List<string> { id};
             var result = _elasticsearchClient.Search<Animal>(s => s
                 .Index("animals")
                 .AllTypes()
                 .Query(p => p.Ids(idsList)));
-                
-            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
-            if(result.Documents.Any()) throw new ArgumentException("Id already exists in store");
-            _logProvider.ElasticSearchProviderVerbose(string.Format("Created animal: {0}, {1}", animal.Id, animal.AnimalType));
+            if (result.Documents.Any()) throw new ArgumentException("Id already exists in store");
         }
 
         public void UpdateAnimal(Animal animal)
