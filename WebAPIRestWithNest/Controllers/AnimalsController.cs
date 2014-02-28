@@ -48,8 +48,8 @@ namespace WebAPIRestWithNest.Controllers
         // PUT api/animals/5
         [HttpPut]
         [HttpPatch]
-        [Route("{id}")]
-        public void Put(int id, [FromBody]Animal value)
+        [Route("")]
+        public void Put( [FromBody]Animal value)
         {
             _animalManager.UpdateAnimal(value);
         }
