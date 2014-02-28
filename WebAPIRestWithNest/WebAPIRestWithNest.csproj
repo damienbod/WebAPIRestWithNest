@@ -154,6 +154,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AnimalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Filters\AnimalExceptionFilterAttribute .cs" />
     <Compile Include="Filters\LoggingFilterAttribute.cs" />
     <Compile Include="App_Start\WebApiUnityActionFilterProvider.cs" />
     <Compile Include="Global.asax.cs">

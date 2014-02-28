@@ -9,6 +9,7 @@ namespace WebAPIRestWithNest.Controllers
 {
     [RoutePrefix("api/animals")]
     [LoggingFilter]
+    [AnimalExceptionFilter]
     public class AnimalsController : ApiController
     {
         private readonly IAnimalManager _animalManager;

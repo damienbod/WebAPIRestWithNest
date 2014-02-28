@@ -20,15 +20,17 @@ namespace WebAPIRestWithNest.Filters
  
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            var objectContent = actionExecutedContext.Response.Content as ObjectContent;
-            if (objectContent != null)
+            if((actionExecutedContext.Response != null))
             {
-                var type = objectContent.ObjectType; //type of the returned object
-                var value = objectContent.Value; //holding the returned value
-            }
-            LogProvider.ServiceVerbose(string.Format("{0}, HTTP STATUS CODE: {1}", actionExecutedContext.Request.RequestUri, actionExecutedContext.Response.StatusCode));
-
-            Debug.WriteLine("ACTION 1 DEBUG  OnActionExecuted Response " + actionExecutedContext.Response.StatusCode.ToString());
+                var objectContent = actionExecutedContext.Response.Content as ObjectContent;
+                if (objectContent != null)
+                {
+                    var type = objectContent.ObjectType; //type of the returned object
+                    var value = objectContent.Value; //holding the returned value
+                }
+                LogProvider.ServiceVerbose(string.Format("{0}, HTTP STATUS CODE: {1}",
+                    actionExecutedContext.Request.RequestUri, actionExecutedContext.Response.StatusCode));
+            }           
         }
     }
 }
