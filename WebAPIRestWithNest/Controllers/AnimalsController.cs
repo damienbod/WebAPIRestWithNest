@@ -37,9 +37,16 @@ namespace WebAPIRestWithNest.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public Animal Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return _animalManager.GetAnimal(id);           
+            try
+            {
+                return Ok(_animalManager.GetAnimal(id));
+            }
+            catch
+            {
+                return NotFound();
+            }                      
         }
 
         // POST api/animals
