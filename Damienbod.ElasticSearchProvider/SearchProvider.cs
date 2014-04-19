@@ -68,5 +68,16 @@ namespace Damienbod.ElasticSearchProvider
             _logProvider.ElasticSearchProviderWarning(string.Format("Sending DELETE index: {0}", index));
             _elasticsearchClient.DeleteIndex(index);
         }
+
+        public Animal GetAnimal(int id)
+        {
+            var idsList = new List<string> { id.ToString(CultureInfo.InvariantCulture) };
+            var result = _elasticsearchClient.Search<Animal>(s => s
+                .Index("animals")
+                .AllTypes()
+                .Query(p => p.Ids(idsList)));
+
+            return result.Documents.First();
+        }
     }
 }

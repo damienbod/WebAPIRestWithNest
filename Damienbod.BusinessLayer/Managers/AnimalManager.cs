@@ -26,7 +26,7 @@ namespace Damienbod.BusinessLayer.Managers
 
         public Animal GetAnimal(int id)
         {
-            return new Animal { AnimalType = "Dog", Id = 1 };
+            return _searchProvider.GetAnimal(id);
         }
 
         public void UpdateAnimal(Animal value)
