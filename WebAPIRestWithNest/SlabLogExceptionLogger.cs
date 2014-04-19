@@ -17,5 +17,4 @@ namespace WebAPIRestWithNest
             _logProvider.ServiceCritical(string.Format("{0}, {1}, {2}", context.Request.Method, context.Request.RequestUri, context.Exception.Message));
         }
     }
-
 }

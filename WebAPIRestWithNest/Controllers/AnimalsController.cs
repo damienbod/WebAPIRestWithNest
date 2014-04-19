@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using Damienbod.BusinessLayer.DomainModel;
 using Damienbod.BusinessLayer.Managers;
@@ -24,9 +25,9 @@ namespace WebAPIRestWithNest.Controllers
         // GET api/animals
         [HttpGet]
         [Route("")]
-        public IEnumerable<Animal> Get()
+        public IHttpActionResult Get()
         {
-            return _animalManager.GetAnimals();
+            return Ok(_animalManager.GetAnimals());
         }
 
         [HttpGet]
@@ -40,9 +41,11 @@ namespace WebAPIRestWithNest.Controllers
         // POST api/animals
         [HttpPost]
         [Route("")]
-        public void Post([FromBody]Animal value)
+        public IHttpActionResult Post([FromBody]Animal value)
         {
             _animalManager.CreateAnimal(value);
+            // could set the Id here in the retrun content
+            return Created<Animal>(Request.RequestUri, value );
         }
 
         // PUT api/animals/5
@@ -67,6 +70,8 @@ namespace WebAPIRestWithNest.Controllers
         [Route("deleteIndex/{index}")]
         public void DeleteIndex(string index)
         {
+            //_animalManager.DeleteIndex("outofprocessslab-2014.04.11");
+
             _animalManager.DeleteIndex(index);
         }
     }
