@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using Damienbod.BusinessLayer.Attributes;
 using Damienbod.BusinessLayer.DomainModel;
 using Damienbod.BusinessLayer.Providers;
