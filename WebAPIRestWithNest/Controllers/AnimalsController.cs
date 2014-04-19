@@ -28,6 +28,7 @@ namespace WebAPIRestWithNest.Controllers
         public IHttpActionResult Get()
         {
             return Ok(_animalManager.GetAnimals());
+
         }
 
         [HttpGet]
