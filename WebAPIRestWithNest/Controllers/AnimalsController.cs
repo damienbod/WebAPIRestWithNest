@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Damienbod.BusinessLayer.DomainModel;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
-using Damienbod.LogProvider.Events;
-using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
 using WebAPIRestWithNest.Filters;
 using WebAPIRestWithNest.Versioning;
 
@@ -32,7 +26,6 @@ namespace WebAPIRestWithNest.Controllers
         public IHttpActionResult Get()
         {
             return SetVersionOk(_animalManager.GetAnimals());
-
         }
 
         [HttpGet]
@@ -56,7 +49,7 @@ namespace WebAPIRestWithNest.Controllers
         {
             _animalManager.CreateAnimal(value);
             // could set the Id here in the retrun content
-            return Created<Animal>(Request.RequestUri, value );
+            return Created<Animal>(Request.RequestUri, value);
         }
 
         // PUT api/animals/5
@@ -82,7 +75,6 @@ namespace WebAPIRestWithNest.Controllers
         public void DeleteIndex(string index)
         {
             _animalManager.DeleteIndex("outofprocessslab-2014.04.19");
-
             _animalManager.DeleteIndex(index);
         }
 
