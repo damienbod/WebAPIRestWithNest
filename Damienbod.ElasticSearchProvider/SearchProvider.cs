@@ -52,7 +52,7 @@ namespace Damienbod.ElasticSearchProvider
             var result = _elasticsearchClient.Search<Animal>(s => s
                     .Index("animals")
                     .AllTypes()
-                    .MatchAll()
+                    .MatchAll().Size(250)
                 );
             return result.Documents.ToList();
         }
