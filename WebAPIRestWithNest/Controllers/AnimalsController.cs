@@ -9,10 +9,10 @@ using Damienbod.BusinessLayer.Providers;
 using Damienbod.LogProvider.Events;
 using Microsoft.Practices.EnterpriseLibrary.SemanticLogging;
 using WebAPIRestWithNest.Filters;
+using WebAPIRestWithNest.Versioning;
 
 namespace WebAPIRestWithNest.Controllers
 {
-    [RoutePrefix("api/animals")]
     [LoggingFilter]
     [AnimalExceptionFilter]
     public class AnimalsController : ApiController
@@ -28,15 +28,15 @@ namespace WebAPIRestWithNest.Controllers
 
         // GET api/animals
         [HttpGet]
-        [Route("")]
+        [VersionedRoute("api/animals", 1)]
         public IHttpActionResult Get()
         {
-            return Ok(_animalManager.GetAnimals());
+            return SetVersionOk(_animalManager.GetAnimals());
 
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("api/animals/{id}")]
         public IHttpActionResult Get(int id)
         {
             try
@@ -51,7 +51,7 @@ namespace WebAPIRestWithNest.Controllers
 
         // POST api/animals
         [HttpPost]
-        [Route("")]
+        [Route("api/animals")]
         public IHttpActionResult Post([FromBody]Animal value)
         {
             _animalManager.CreateAnimal(value);
@@ -62,7 +62,7 @@ namespace WebAPIRestWithNest.Controllers
         // PUT api/animals/5
         [HttpPut]
         [HttpPatch]
-        [Route("")]
+        [Route("api/animals")]
         public void Put( [FromBody]Animal value)
         {
             _animalManager.UpdateAnimal(value);
@@ -70,7 +70,7 @@ namespace WebAPIRestWithNest.Controllers
 
         // DELETE api/animals/5
         [HttpDelete]
-        [Route("{id}")]
+        [Route("api/animals/{id}")]
         public void Delete(int id)
         {
             _animalManager.DeleteAnimal(id);
@@ -78,12 +78,17 @@ namespace WebAPIRestWithNest.Controllers
 
         // DELETE api/animals/5
         [HttpDelete]
-        [Route("deleteIndex/{index}")]
+        [Route("api/animals/deleteIndex/{index}")]
         public void DeleteIndex(string index)
         {
             _animalManager.DeleteIndex("outofprocessslab-2014.04.19");
 
             _animalManager.DeleteIndex(index);
+        }
+
+        private IHttpActionResult SetVersionOk(object body)
+        {
+            return new SetVersionInResponseHeader<object>(Request, "1", body, true);
         }
     }
 }
