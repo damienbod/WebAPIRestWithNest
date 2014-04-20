@@ -8,11 +8,11 @@ namespace WebAPIRestWithNest.Client
 {
     public class DefaultBatchWithJsonAndDefaultBatchHandler
     {
-        const string baseAddress = "https://webapirestwithnest/";
+        const string BaseAddress = "https://webapirestwithnest/";
 
         private static HttpRequestMessage CreateNewAnimal(int id, string description)
         {
-            var x1 = new HttpRequestMessage(HttpMethod.Post, baseAddress + "/api/animals");
+            var x1 = new HttpRequestMessage(HttpMethod.Post, BaseAddress + "/api/animals");
             var animal = new Animal
             {
                 AnimalType = "monkey",
@@ -33,15 +33,15 @@ namespace WebAPIRestWithNest.Client
         public static void DoRequest()
         {
             var client = new HttpClient();
-            var batchRequest = new HttpRequestMessage(HttpMethod.Post, baseAddress + "/api/$batch")
+            var batchRequest = new HttpRequestMessage(HttpMethod.Post, BaseAddress + "/api/$batch")
             {
                 Content = new MultipartContent("mixed")
                 {
-                    new HttpMessageContent(CreateNewAnimal(205,"crazy monkey")),
-                    new HttpMessageContent(CreateNewAnimal(206,"happy monkey")),
-                    new HttpMessageContent(CreateNewAnimal(207,"sad monkey")),
-                    new HttpMessageContent(CreateNewAnimal(208,"silly monkey")),
-                    new HttpMessageContent(CreateNewAnimal(209,"dead monkey"))
+                    new HttpMessageContent(CreateNewAnimal(210,"crazy monkey")),
+                    new HttpMessageContent(CreateNewAnimal(211,"happy monkey")),
+                    new HttpMessageContent(CreateNewAnimal(212,"sad monkey")),
+                    new HttpMessageContent(CreateNewAnimal(213,"silly monkey")),
+                    new HttpMessageContent(CreateNewAnimal(214,"dead monkey"))
                 }
             };
 

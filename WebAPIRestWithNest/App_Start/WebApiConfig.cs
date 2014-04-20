@@ -5,6 +5,7 @@ using System.Web.Http.Tracing;
 using Damienbod.BusinessLayer.Providers;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.WebApi;
+using WebApiContrib.Formatting.Xlsx;
 using WebApiContrib.Tracing.Slab;
 using WebAPIRestWithNest.App_Start;
 
@@ -20,6 +21,8 @@ namespace WebAPIRestWithNest
                 routeName: "WebApiBatch",
                 routeTemplate: "api/$batch",
                 batchHandler: new DefaultHttpBatchHandler(GlobalConfiguration.DefaultServer));
+
+            config.Formatters.Add(new XlsxMediaTypeFormatter());
 
             config.DependencyResolver = new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
             config.Services.Add(typeof (IExceptionLogger),
