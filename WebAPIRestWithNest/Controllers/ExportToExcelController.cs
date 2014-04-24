@@ -8,9 +8,11 @@ using System.Text;
 using System.Web.Http;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace WebAPIRestWithNest.Controllers
 {
+    [Authorize]
     public class ExportToExcelController : ApiController
     {
         private readonly IAnimalManager _animalManager;

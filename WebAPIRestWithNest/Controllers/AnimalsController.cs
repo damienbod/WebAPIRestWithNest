@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Web.Http;
+using System.Web.Http.Description;
 using Damienbod.BusinessLayer.DomainModel;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
@@ -23,6 +26,7 @@ namespace WebAPIRestWithNest.Controllers
         // GET api/animals
         [HttpGet]
         [VersionedRoute("api/animals", 1)]
+        [ResponseType(typeof(IEnumerable<Animal>))]
         public IHttpActionResult Get()
         {
             return SetVersionOk(_animalManager.GetAnimals());
@@ -78,9 +82,9 @@ namespace WebAPIRestWithNest.Controllers
             _animalManager.DeleteIndex(index);
         }
 
-        private IHttpActionResult SetVersionOk(object body)
+        private IHttpActionResult SetVersionOk(IEnumerable<Animal> body)
         {
-            return new SetVersionInResponseHeader<object>(Request, "1", body, true);
+            return new SetVersionInResponseHeader<IEnumerable<Animal>>(Request, "1", body, true);
         }
     }
 }

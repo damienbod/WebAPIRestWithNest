@@ -13,8 +13,9 @@ namespace WebAPIRestWithNest
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        public static HttpConfiguration Register()
         {
+            HttpConfiguration config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpBatchRoute(
@@ -25,13 +26,14 @@ namespace WebAPIRestWithNest
             config.Formatters.Add(new XlsxMediaTypeFormatter());
 
             config.DependencyResolver = new UnityDependencyResolver(UnityConfig.GetConfiguredContainer());
-            config.Services.Add(typeof (IExceptionLogger),
+            config.Services.Add(typeof(IExceptionLogger),
                 new SlabLogExceptionLogger(UnityConfig.GetConfiguredContainer().Resolve<ILogProvider>()));
 
             config.EnableSystemDiagnosticsTracing();
             config.Services.Replace(typeof (ITraceWriter), new SlabTraceWriter());
 
             WebApiUnityActionFilterProvider.RegisterFilterProviders(config);
+            return config;
         }
     }
 }
