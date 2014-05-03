@@ -1,0 +1,78 @@
+﻿
+<div class="row">
+    <p>
+        <ol></ol>
+    </p>
+</div>
+
+<form action="https://webapirestwithnest/api/exporttoexcel" method="get">
+    <input type="hidden" name="token" id="token" value="noneset" />
+    <input type="submit" value="download file" />
+</form>
+@section scripts {
+<script>
+        
+    var identityUrl = 'https://webapirestwithnest/api/export';
+
+        function HttpBearerTokenClient(token) {
+            this.scheme = "Bearer";
+            this.token = token;
+            
+        }
+        HttpBearerTokenClient.prototype.get = function (url) {
+            var scheme = this.scheme;
+            var token = this.token;
+            var settings = {
+                type: "GET",
+                url: url,
+                dataType: "document",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", scheme + " " + token);
+                    xhr.setRequestHeader("Accept", "application/json");                   
+                }
+            };
+            return $.ajax(settings);
+        }
+
+        $(function () {
+            function log(msg) {
+                $("<li>").html(msg).appendTo("ol");
+            }
+
+            var params = {},
+                queryString = location.hash.substring(1),
+                regex = /([^&=]+)=([^&]*)/g,
+                m;
+            while (m = regex.exec(queryString)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+
+            if (params.error) {
+                log("error: " + params.error);
+                return;
+            }
+
+            var state = sessionStorage["state"];
+            if (params.state !== state) {
+                log("error: bad state");
+                return;
+            }
+
+            var token = params.access_token;
+            log("Token Obtained: " + token);
+            document.getElementById("token").value = token;
+
+            $("button").prop("disabled", false).click(function () {
+                log("&nbsp;");
+                log("Calling Service...");
+                var client = new HttpBearerTokenClient(token);
+                client.get(identityUrl).done(function (result) {
+                    window.location = result;
+                }).fail(function (xhr, error, status) {
+                    log("error calling service: " + xhr.status + error);
+                });
+            });
+        });
+
+</script>
+}

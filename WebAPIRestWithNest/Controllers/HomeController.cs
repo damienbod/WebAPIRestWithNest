@@ -14,5 +14,10 @@ namespace WebAPIRestWithNest.Controllers
 
             return View();
         }
+
+        public ActionResult Callback()
+        {
+            return View();
+        }
     }
 }

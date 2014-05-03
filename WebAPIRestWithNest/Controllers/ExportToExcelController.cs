@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Damienbod.BusinessLayer.Managers;
 using Damienbod.BusinessLayer.Providers;
@@ -12,7 +14,7 @@ using Thinktecture.IdentityModel.WebApi;
 
 namespace WebAPIRestWithNest.Controllers
 {
-    [Authorize]
+   
     public class ExportToExcelController : ApiController
     {
         private readonly IAnimalManager _animalManager;
@@ -24,15 +26,24 @@ namespace WebAPIRestWithNest.Controllers
             _logProvider = logProvider;
         }
 
+        [ResourceActionAuthorize("export")]
+        [ScopeAuthorize("export")]
+        [Authorize]
         [HttpGet]
         [Route("api/exporttoexcel")]
-        public IHttpActionResult GetAnimalsExport()
+        public IHttpActionResult GetAnimalsExportExcel(string token)
         { 
             Request.Headers.Accept.Clear();
             Request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.ms-excel"));
             return Ok(_animalManager.GetAnimals());
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("api/export")]
+        public IHttpActionResult GetAnimalsExport()
+        {
+            return Ok(_animalManager.GetAnimals());
+        }
     }
 }
-
-// application/vnd.ms-excel

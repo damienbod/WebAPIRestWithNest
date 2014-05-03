@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Jwt;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System.IdentityModel.Tokens;
 using Thinktecture.IdentityModel;
@@ -30,49 +31,54 @@ namespace WebAPIRestWithNest
             // validate JWT tokens from AuthorizationServer
             var jwtBearerAuthenticationOptions = new JwtBearerAuthenticationOptions
             {
-                AllowedAudiences = new List<string>() {"users"},
+                AllowedAudiences = new List<string>() {"users", "damienbod"},
                 IssuerSecurityTokenProviders =
                     new List<IIssuerSecurityTokenProvider>()
                     {
                         new SymmetricKeyIssuerSecurityTokenProvider("AS", SigningKey)
-                    }
+                    },
+                 Provider = new QueryStringOAuthBearerProvider("token")
             };
             app.UseJwtBearerAuthentication(jwtBearerAuthenticationOptions);
                 
-            // claims transformation
-            //app.UseClaimsTransformation(new ClaimsTransformer().Transform);
-
             app.UseWebApi(WebApiConfig.Register());
         }
     }
 
+    /// <summary>
+    /// This class is required if standard header bearer authentifaction cannot be used. This helper method helps get the resource from a different location.
+    /// </summary>
+    public class QueryStringOAuthBearerProvider : OAuthBearerAuthenticationProvider
+    {
+        readonly string _name;
+
+        public QueryStringOAuthBearerProvider(string name)
+        {
+            _name = name;
+        }
+
+        public override Task RequestToken(OAuthRequestTokenContext context)
+        {
+            var value = context.Request.Query.Get(_name);
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                context.Token = value;
+            }
+
+            return Task.FromResult<object>(null);
+        }
+    }
     public class AuthorizationManager : ClaimsAuthorizationManager
     {
         public override bool CheckAccess(AuthorizationContext context)
         {
             // inspect sub, action, resource
-            Debug.WriteLine(context.Principal.FindFirst("sub").Value);
-            Debug.WriteLine(context.Action.First().Value);
-            Debug.WriteLine(context.Resource.First().Value);
+            //Debug.WriteLine(context.Principal.FindFirst("sub").Value);
+            //Debug.WriteLine(context.Action.First().Value);
+            //Debug.WriteLine(context.Resource.First().Value);
 
             return true;
-        }
-    }
-
-    public class ClaimsTransformer
-    {
-        public Task<ClaimsPrincipal> Transform(ClaimsPrincipal incomingPrincipal)
-        {
-            if (!incomingPrincipal.Identity.IsAuthenticated)
-            {
-                return Task.FromResult(incomingPrincipal);
-            }
-
-            // go to datastore and add app specific claims
-            incomingPrincipal.Identities.First().AddClaim(
-                new Claim("localclaim", "localvalue"));
-
-            return Task.FromResult(incomingPrincipal);
         }
     }
 }
