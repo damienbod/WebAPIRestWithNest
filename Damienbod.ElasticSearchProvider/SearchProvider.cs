@@ -26,8 +26,14 @@ namespace Damienbod.ElasticSearchProvider
 
         public void CreateAnimal(Animal animal)
         {
-            ValidateIfIdIsAlreadyUsedForIndex(animal.Id.ToString(CultureInfo.InvariantCulture));               
-            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");          
+            ValidateIfIdIsAlreadyUsedForIndex(animal.Id.ToString(CultureInfo.InvariantCulture));
+			var index = _elasticsearchClient.Index(animal, i => i
+			   .Index("Animal.SearchIndex")
+			   .Type("animal")
+			   .Id(animal.Id)
+			   .Refresh()
+			   .Ttl("1m")
+			   );        
             _logProvider.ElasticSearchProviderVerbose(string.Format("Created animal: {0}, {1}", animal.Id, animal.AnimalType));
         }
 
@@ -41,13 +47,21 @@ namespace Damienbod.ElasticSearchProvider
             if (result.Documents.Any()) throw new ArgumentException("Id already exists in store");
         }
 
-        public void UpdateAnimal(Animal animal)
-        {
-            _elasticsearchClient.Index(animal, Animal.SearchIndex, "animal");
-            _logProvider.ElasticSearchProviderVerbose(string.Format("Updated animal: {0}, {1}", animal.Id, animal.AnimalType));
-        }
+	    public void UpdateAnimal(Animal animal)
+	    {
 
-        public IEnumerable<Animal> GetAnimals()
+		    var index = _elasticsearchClient.Index(animal, i => i
+			    .Index("Animal.SearchIndex")
+			    .Type("animal")
+			    .Id(animal.Id)
+			    .Refresh()
+			    .Ttl("1m")
+			    );
+
+		    _logProvider.ElasticSearchProviderVerbose(string.Format("Updated animal: {0}, {1}", animal.Id, animal.AnimalType));
+	    }
+
+	    public IEnumerable<Animal> GetAnimals()
         {
             var result = _elasticsearchClient.Search<Animal>(s => s
                     .Index("animals")

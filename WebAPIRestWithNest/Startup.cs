@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Jwt;
@@ -8,9 +7,7 @@ using Owin;
 using System.IdentityModel.Tokens;
 using Thinktecture.IdentityModel;
 using Thinktecture.IdentityModel.Tokens;
-using System.Diagnostics;
 using System.Security.Claims;
-using System.Linq;
 
 [assembly: OwinStartup(typeof(WebAPIRestWithNest.Startup))]
 
