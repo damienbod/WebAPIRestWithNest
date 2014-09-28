@@ -60,13 +60,13 @@ namespace Damienbod.ElasticSearchProvider
         public void DeleteById(int id)
         {
             _logProvider.ElasticSearchProviderVerbose(string.Format("Sending DELETE animal type from animals index with id: {0}", id));
-            _elasticsearchClient.DeleteById("animals", "animal", id);
+            _elasticsearchClient.Delete<Animal>(id);
         }
 
         public void DeleteIndex(string index)
         {
             _logProvider.ElasticSearchProviderWarning(string.Format("Sending DELETE index: {0}", index));
-            _elasticsearchClient.DeleteIndex(index);
+            _elasticsearchClient.DeleteIndex(s => s.Index(index));
         }
 
         public Animal GetAnimal(int id)
