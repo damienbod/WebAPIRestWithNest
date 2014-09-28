@@ -28,7 +28,7 @@ namespace Damienbod.ElasticSearchProvider
 		{
 			ValidateIfIdIsAlreadyUsedForIndex(animal.Id.ToString(CultureInfo.InvariantCulture));
 			var index = _elasticsearchClient.Index(animal, i => i
-			   .Index("Animal.SearchIndex")
+			   .Index("animals")
 			   .Type("animal")
 			   .Id(animal.Id)
 			   .Refresh()
